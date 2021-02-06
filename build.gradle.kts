@@ -1,3 +1,5 @@
-group = "ru.krivonos.remindercalendar"
-version = "0.0.1"
+val projectVersion: String by project
+val groupName: String by project
 
+group = "ru.krivonos.remindercalendar"
+version = projectVersion
