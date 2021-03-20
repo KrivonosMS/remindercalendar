@@ -43,6 +43,7 @@ dependencies {
     implementation(project(":ok-remindercalendar-common-be"))
     implementation(project(":ok-remindercalendar-transport-main-mp"))
     implementation(project(":ok-remindercalendar-be-mappers-mp"))
+    implementation(project(":ok-remindercalendar-be-business-logic"))
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
@@ -51,9 +52,6 @@ dependencies {
     implementation("io.ktor:ktor-server-host-common:$ktorVersion")
     implementation("io.ktor:ktor-serialization:$ktorVersion")
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
-//    testImplementation(kotlin("test-junit5"))
-//    testImplementation(platform("org.junit:junit-bom:$junitBomVersion"))
-//    testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.assertj:assertj-core:$assertjVersion")
     testImplementation("io.mockk:mockk:$mockkVersion")
 }

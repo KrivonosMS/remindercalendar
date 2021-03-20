@@ -1,11 +1,11 @@
 package ru.otus.otuskotlin.remindercalendar.common.backend.context
 
-import ru.otus.otuskotlin.remindercalendar.common.backend.model.ErrorValueModel
-import ru.otus.otuskotlin.remindercalendar.common.backend.model.EventIdModel
-import ru.otus.otuskotlin.remindercalendar.common.backend.model.EventModel
-import ru.otus.otuskotlin.remindercalendar.common.backend.model.FilterModel
+import ru.otus.otuskotlin.remindercalendar.common.backend.model.*
 
 data class Context(
+    var status: ContextStatus = ContextStatus.NONE,
+    var stubCase: StubCase = StubCase.NONE,
+
     var requestEventId: EventIdModel = EventIdModel.NONE,
     var requestEvent: EventModel = EventModel.NONE,
     var responseEvent: EventModel = EventModel.NONE,
@@ -13,5 +13,5 @@ data class Context(
     var requestEventFilter: FilterModel = FilterModel.NONE,
     var responseEventFilter: List<EventModel> = listOf(),
     var eventsCount: Int = 0,
-    var errors: List<ErrorValueModel> = listOf(),
+    var errors: MutableList<ErrorValueModel> = mutableListOf(),
 )

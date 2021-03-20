@@ -32,9 +32,12 @@ kotlin {
 	}
 
 	sourceSets {
+        val coroutineVersion: String by project
+
 		val commonMain by getting {
 			dependencies {
 				implementation(kotlin("stdlib-common"))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
 			}
 		}
 		val commonTest by getting {
@@ -60,17 +63,27 @@ kotlin {
 
 		val jvmMain by getting {
 			dependencies {
+                implementation(project(":ok-remindercalendar-common-be"))
 				implementation(kotlin("stdlib"))
 			}
 		}
 
 		val jvmTest by getting {
-
 			dependencies {
                 implementation(kotlin("test-junit5"))
                 implementation("org.junit.jupiter:junit-jupiter:$jupiterVersion")
 
 			}
 		}
+//        val jvmMain by getting {
+//            dependencies {
+//                implementation(kotlin("stdlib"))
+//            }
+//        }
+//        val jvmTest by getting {
+//            dependencies {
+//                implementation(kotlin("test-junit"))
+//            }
+//        }
 	}
 }

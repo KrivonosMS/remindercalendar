@@ -3,51 +3,45 @@ package ru.otus.otuskotlin.remindercalendar.common.mp
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 
 internal class NameValidatorTest {
     @Test
-    fun heckValidationNameWhenNameIsEmpty() {
-        val nameValidator = NameValidator()
+    fun checkValidationFieldWhenIsEmpty() {
+        val validatorStringFieldNotEmpty = ValidatorStringFieldNotEmpty()
 
-        val res = nameValidator.validate("")
+        val res = validatorStringFieldNotEmpty.validate("")
 
         assertFalse { res.isSuccess() }
         assertEquals(
-            "Name must not be empty",
+            "Field must not be empty or null",
             res.errors.first().message
         )
     }
 
     @Test
-    fun checkValidationAgeWhenAgeOutOfRange() {
-        val ageValidator = AgeValidator(2, 5)
+    fun heckValidationFieldWhenIsBlank() {
+        val validatorStringFieldNotEmpty = ValidatorStringFieldNotEmpty()
 
-        val res = ageValidator.validate(7)
+        val res = validatorStringFieldNotEmpty.validate("  ")
 
         assertFalse { res.isSuccess() }
         assertEquals(
-            "You are too young for this service",
+            "Field must not be empty or null",
             res.errors.first().message
         )
     }
 
     @Test
-    fun checkChildValidationWhenAgeWrongAndNameIsEmpty() {
-        val childValidator = ChildValidator()
+    fun heckValidationFieldWhenIsNull() {
+        val validatorStringFieldNotEmpty = ValidatorStringFieldNotEmpty()
 
-        val res = childValidator.validate(
-            Child(
-                name = "",
-                age = 19
-            )
-        )
+        val res = validatorStringFieldNotEmpty.validate(null)
 
         assertFalse { res.isSuccess() }
-        assertTrue {
-            res.errors.map { it.message }.contains("Name must not be empty")
-            res.errors.map { it.message }.contains("You are too young for this service")
-        }
+        assertEquals(
+            "Field must not be empty or null",
+            res.errors.first().message
+        )
     }
 }
