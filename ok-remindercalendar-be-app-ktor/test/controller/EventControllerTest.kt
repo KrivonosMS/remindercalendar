@@ -6,6 +6,7 @@ import io.ktor.http.*
 import io.ktor.server.testing.*
 import io.mockk.every
 import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
 import org.assertj.core.api.Assertions.assertThat
 import ru.otus.otuskotlin.remindercalendar.transport.model.common.ErrorValueDto
 import ru.otus.otuskotlin.remindercalendar.transport.model.common.FrequencyDto
@@ -13,6 +14,7 @@ import ru.otus.otuskotlin.remindercalendar.transport.model.common.Message
 import ru.otus.otuskotlin.remindercalendar.transport.model.common.ResponseStatusDto
 import ru.otus.otuskotlin.remindercalendar.transport.model.event.*
 import java.time.LocalDateTime
+import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.fail
@@ -23,6 +25,11 @@ internal class EventControllerTest {
     fun mockInit() {
         mockkStatic(LocalDateTime::class)
         every { LocalDateTime.now() } returns LocalDateTime.of(2020, 1, 1, 10, 20)
+    }
+
+    @AfterTest
+    fun destory() {
+        unmockkStatic(LocalDateTime::class)
     }
 
     @Test
@@ -48,16 +55,17 @@ internal class EventControllerTest {
                         ResponseEventRead(
                             responseId = "123",
                             onRequestId = "1",
-                            endTime = "2020-01-01T10:20",
+                            endTime = "2020-01-01T10:20:00",
                             status = ResponseStatusDto.SUCCESS,
+                            errors = listOf(),
                             event = EventDto(
-                                id = "event-id",
+                                id = "test-id",
                                 name = "name",
-                                description = "description",
-                                startSchedule = "2021-02-25T13:40:00",
-                                userId = "userId",
-                                frequency = FrequencyDto.YEARLY,
-                                mobile = "+7123456789",
+                                description = "test-description",
+                                startSchedule = "2020-02-25T07:22:00",
+                                userId = "test-user-id",
+                                frequency = FrequencyDto.DAILY,
+                                mobile = "test-mobile",
                             )
                         )
                     )
@@ -95,16 +103,17 @@ internal class EventControllerTest {
                         ResponseEventCreate(
                             responseId = "123",
                             onRequestId = "1",
-                            endTime = "2020-01-01T10:20",
+                            endTime = "2020-01-01T10:20:00",
                             status = ResponseStatusDto.SUCCESS,
+                            errors = listOf(),
                             event = EventDto(
-                                id = "event-id",
+                                id = "test-id",
                                 name = "name",
-                                description = "description",
-                                startSchedule = "2021-02-25T13:40:00",
-                                userId = "userId",
-                                frequency = FrequencyDto.YEARLY,
-                                mobile = "+7123456789",
+                                description = "test-description",
+                                startSchedule = "2020-02-25T07:22:00",
+                                userId = "test-user-id",
+                                frequency = FrequencyDto.DAILY,
+                                mobile = "test-mobile",
                             )
                         )
                     )
@@ -143,62 +152,17 @@ internal class EventControllerTest {
                         ResponseEventUpdate(
                             responseId = "123",
                             onRequestId = "1",
-                            endTime = "2020-01-01T10:20",
+                            endTime = "2020-01-01T10:20:00",
                             status = ResponseStatusDto.SUCCESS,
+                            errors = listOf(),
                             event = EventDto(
-                                id = "event-id",
+                                id = "test-id",
                                 name = "name",
-                                description = "description",
-                                startSchedule = "2021-02-25T13:40:00",
-                                userId = "userId",
-                                frequency = FrequencyDto.YEARLY,
-                                mobile = "+7123456789",
-                            )
-                        )
-                    )
-            }
-        }
-    }
-
-    @Test
-    fun `event update when error`() {
-        withTestApplication({ module(testing = true) }) {
-            handleRequest(HttpMethod.Post, "/event/update") {
-                val body = RequestEventUpdate(
-                    requestId = "1",
-                    event = EventUpdateDto(
-                        name = "name",
-                        description = "description",
-                        startSchedule = "2021-02-25T13:40:00",
-                        userId = "userId",
-                        frequency = FrequencyDto.YEARLY,
-                        mobile = "+7123456789",
-                    )
-                )
-                val bodyString = jsonConfig.encodeToString(Message.serializer(), body)
-                setBody(bodyString)
-                addHeader("Content-Type", "application/json")
-            }.apply {
-                assertThat(response.status()).isEqualTo(HttpStatusCode.OK)
-                assertThat(response.contentType()).isEqualTo(ContentType.Application.Json.withCharset(Charsets.UTF_8))
-                val jsonString = response.content ?: fail("empty content")
-                val responseEventUpdate =
-                    jsonConfig.decodeFromString(Message.serializer(), jsonString) as ResponseEventUpdate
-                assertThat(responseEventUpdate)
-                    .isInstanceOf(ResponseEventUpdate::class.java)
-                    .isEqualToComparingFieldByField(
-                        ResponseEventUpdate(
-                            responseId = "123",
-                            onRequestId = "1",
-                            endTime = "2020-01-01T10:20",
-                            status = ResponseStatusDto.ERROR,
-                            event = null,
-                            errors = listOf(
-                                ErrorValueDto(
-                                    code = "code",
-                                    field = "field",
-                                    message = "message",
-                                )
+                                description = "test-description",
+                                startSchedule = "2020-02-25T07:22:00",
+                                userId = "test-user-id",
+                                frequency = FrequencyDto.DAILY,
+                                mobile = "test-mobile",
                             )
                         )
                     )
@@ -229,17 +193,18 @@ internal class EventControllerTest {
                         ResponseEventDelete(
                             responseId = "123",
                             onRequestId = "1",
-                            endTime = "2020-01-01T10:20",
+                            endTime = "2020-01-01T10:20:00",
                             status = ResponseStatusDto.SUCCESS,
                             deleted = true,
+                            errors = listOf(),
                             event = EventDto(
-                                id = "event-id",
+                                id = "test-id",
                                 name = "name",
-                                description = "description",
-                                startSchedule = "2021-02-25T13:40:00",
-                                userId = "userId",
-                                frequency = FrequencyDto.YEARLY,
-                                mobile = "+7123456789",
+                                description = "test-description",
+                                startSchedule = "2020-02-25T07:22:00",
+                                userId = "test-user-id",
+                                frequency = FrequencyDto.DAILY,
+                                mobile = "test-mobile",
                             )
                         )
                     )
@@ -256,7 +221,7 @@ internal class EventControllerTest {
                     filter = EventFilterDto(
                         frequency = FrequencyDto.YEARLY,
                         from = 10,
-                        pageSize = 2,
+                        pageSize = 1,
                     )
                 )
                 val bodyString = jsonConfig.encodeToString(Message.serializer(), body)
@@ -274,26 +239,18 @@ internal class EventControllerTest {
                         ResponseEventFilter(
                             responseId = "123",
                             onRequestId = "1",
-                            endTime = "2020-01-01T10:20",
+                            endTime = "2020-01-01T10:20:00",
                             status = ResponseStatusDto.SUCCESS,
+                            errors = listOf(),
                             events = listOf(
                                 EventDto(
-                                    id = "event-id",
+                                    id = "test-id",
                                     name = "name",
-                                    description = "description",
-                                    startSchedule = "2021-02-25T13:40:00",
-                                    userId = "userId",
-                                    frequency = FrequencyDto.YEARLY,
-                                    mobile = "+7123456789",
-                                ),
-                                EventDto(
-                                    id = "event-id",
-                                    name = "name",
-                                    description = "description",
-                                    startSchedule = "2021-02-25T13:40:00",
-                                    userId = "userId",
-                                    frequency = FrequencyDto.YEARLY,
-                                    mobile = "+7123456789",
+                                    description = "test-description",
+                                    startSchedule = "2020-02-25T07:22:00",
+                                    userId = "test-user-id",
+                                    frequency = FrequencyDto.DAILY,
+                                    mobile = "test-mobile",
                                 ),
                             ),
                             count = 100,

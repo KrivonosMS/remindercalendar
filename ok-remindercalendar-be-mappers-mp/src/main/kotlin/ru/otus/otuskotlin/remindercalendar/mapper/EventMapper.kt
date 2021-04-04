@@ -23,6 +23,7 @@ fun EventCreateDto.toInternalModel() = EventModel(
         ?: LocalDateTime.MIN,
     frequency = frequency?.toInternalModel() ?: FrequencyModel.YEARLY,
     userId = userId?.let { UserId(it) } ?: UserId.NONE,
+    mobile = mobile ?: "",
 )
 
 fun Context.request(request: RequestEventUpdate) {
@@ -38,6 +39,7 @@ fun EventUpdateDto.toInternalModel() = EventModel(
         ?: LocalDateTime.MIN,
     frequency = frequency?.toInternalModel() ?: FrequencyModel.YEARLY,
     userId = userId?.let { UserId(it) } ?: UserId.NONE,
+    mobile = mobile ?: "",
 )
 
 fun Context.request(request: RequestEventRead) {
@@ -71,8 +73,6 @@ fun FrequencyDto.toInternalModel() =
     }
 
 fun Context.toResponseEventCreate() = ResponseEventCreate(
-    responseId = requestEventId.id,
-    onRequestId = requestEventId.id,
     endTime = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME),
     errors = errors.toErrorValueDtoList(),
     status = errors.status(),
@@ -114,8 +114,6 @@ fun FrequencyModel.toFrequencyDto() =
     }
 
 fun Context.toResponseEventUpdate() = ResponseEventUpdate(
-    responseId = requestEventId.id,
-    onRequestId = requestEventId.id,
     endTime = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME),
     errors = errors.toErrorValueDtoList(),
     status = errors.status(),
@@ -123,8 +121,6 @@ fun Context.toResponseEventUpdate() = ResponseEventUpdate(
 )
 
 fun Context.toResponseEventRead() = ResponseEventRead(
-    responseId = requestEventId.id,
-    onRequestId = requestEventId.id,
     endTime = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME),
     errors = errors.toErrorValueDtoList(),
     status = errors.status(),
@@ -132,8 +128,6 @@ fun Context.toResponseEventRead() = ResponseEventRead(
 )
 
 fun Context.toResponseEventDelete() = ResponseEventDelete(
-    responseId = requestEventId.id,
-    onRequestId = requestEventId.id,
     endTime = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME),
     errors = errors.toErrorValueDtoList(),
     status = errors.status(),
@@ -142,8 +136,6 @@ fun Context.toResponseEventDelete() = ResponseEventDelete(
 )
 
 fun Context.toResponseEventFilter() = ResponseEventFilter(
-    responseId = requestEventId.id,
-    onRequestId = requestEventId.id,
     endTime = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME),
     errors = errors.toErrorValueDtoList(),
     status = errors.status(),

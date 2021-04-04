@@ -10,6 +10,7 @@ import io.ktor.content.*
 import io.ktor.http.content.*
 import io.ktor.features.*
 import io.ktor.serialization.*
+import ru.otus.otuskotlin.remindercalendar.business.logic.EventCrud
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -34,7 +35,8 @@ fun Application.module(testing: Boolean = false) {
         )
     }
 
-    val eventController = EventController()
+    val eventCrud = EventCrud()
+    val eventController = EventController(eventCrud)
 
     routing {
         get("/") {

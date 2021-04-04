@@ -7,7 +7,7 @@ data class EventModel(
     override val name: String = "",
     override val description: String = "",
     override val startSchedule: LocalDateTime = LocalDateTime.MIN,
-    override val frequency: FrequencyModel = FrequencyModel.DAILY,
+    override val frequency: FrequencyModel = FrequencyModel.NONE,
     override val userId: UserId = UserId.NONE,
     override val mobile: String = "",
 ) : ItemModel {
