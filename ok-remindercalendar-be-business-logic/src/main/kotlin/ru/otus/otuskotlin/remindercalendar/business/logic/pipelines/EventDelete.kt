@@ -17,7 +17,7 @@ object EventDelete : Operation<Context> by pipeline({
     validation {
         validate<String?> {
             validator(ValidatorStringFieldNotEmpty("You must provide schedule event id"))
-            on { requestEventId.id }
+            on { requestId.id }
         }
     }
 

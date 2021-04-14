@@ -1,22 +1,28 @@
-package com.example
+package ru.otus.otuskotlin.remindercalendar.ktor
 
-import com.example.controller.EventController
 import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.request.*
-import io.ktor.routing.*
-import io.ktor.http.*
-import io.ktor.content.*
-import io.ktor.http.content.*
 import io.ktor.features.*
+import io.ktor.http.*
+import io.ktor.http.content.*
+import io.ktor.response.*
+import io.ktor.routing.*
 import io.ktor.serialization.*
+import org.apache.kafka.clients.consumer.Consumer
+import org.apache.kafka.clients.producer.Producer
 import ru.otus.otuskotlin.remindercalendar.business.logic.EventCrud
+import ru.otus.otuskotlin.remindercalendar.ktor.controller.eventRouting
+import ru.otus.otuskotlin.remindercalendar.ktor.controller.kafkaEndpoints
+import ru.otus.otuskotlin.remindercalendar.ktor.services.EventService
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
-fun Application.module(testing: Boolean = false) {
+fun Application.module(
+    testing: Boolean = false,
+    kafkaTestConsumer: Consumer<String, String>? = null,
+    kafkaTestProducer: Producer<String, String>? = null,
+) {
     install(CORS) {
         method(HttpMethod.Options)
         method(HttpMethod.Put)
@@ -36,7 +42,16 @@ fun Application.module(testing: Boolean = false) {
     }
 
     val eventCrud = EventCrud()
-    val eventController = EventController(eventCrud)
+    val eventService = EventService(eventCrud)
+
+    val topicIn = environment.config.propertyOrNull("remindercalendar.kafka.topicIn")?.getString()
+    if (topicIn != null) {
+        kafkaEndpoints(
+            kafkaConsumer = kafkaTestConsumer,
+            kafkaProducer = kafkaTestProducer,
+            eventService = eventService,
+        )
+    }
 
     routing {
         get("/") {
@@ -48,24 +63,8 @@ fun Application.module(testing: Boolean = false) {
             resources("static")
         }
 
-        route("/event") {
-            post("/read") {
-                eventController.read(this)
-            }
-            post("/create") {
-                eventController.create(this)
-            }
-            post("/update") {
-                eventController.update(this)
-            }
-            post("/delete") {
-                eventController.delete(this)
-            }
-            post("/filter") {
-                eventController.filer(this)
-            }
-
-        }
+        eventRouting(eventService)
     }
+
 }
 

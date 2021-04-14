@@ -11,7 +11,6 @@ import ru.otus.otuskotlin.remindercalendar.transport.model.common.Request
 data class RequestEventRead(
     override val requestId: String? = null,
     override val onResponseId: String? = null,
-    override val startTime: String? = null,
     override val debug: Debug? = null,
     val eventId: String? = null,
 ): Request, Message()

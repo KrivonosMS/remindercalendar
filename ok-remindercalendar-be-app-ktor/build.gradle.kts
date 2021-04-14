@@ -1,16 +1,17 @@
 val ktorVersion: String by project
 val kotlinVersion: String by project
 val logbackVersion: String by project
+val ktorKafkaVersion: String by project
+val kafkaVersion: String by project
+val assertjVersion: String by project
+val mockkVersion: String by project
+val junitBomVersion: String by project
 
 plugins {
     application
     kotlin("jvm")
     id("com.bmuschko.docker-java-application")
 }
-
-val assertjVersion: String by project
-val mockkVersion: String by project
-val junitBomVersion: String by project
 
 group = rootProject.group
 version = rootProject.version
@@ -33,12 +34,6 @@ docker {
     }
 }
 
-repositories {
-    mavenLocal()
-    jcenter()
-    maven { url = uri("https://kotlin.bintray.com/ktor") }
-}
-
 dependencies {
     implementation(project(":ok-remindercalendar-common-be"))
     implementation(project(":ok-remindercalendar-transport-main-mp"))
@@ -54,6 +49,9 @@ dependencies {
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
     testImplementation("org.assertj:assertj-core:$assertjVersion")
     testImplementation("io.mockk:mockk:$mockkVersion")
+
+    implementation("com.github.Datana-company:ktor-kafka:$ktorKafkaVersion")
+    implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
 }
 
 kotlin.sourceSets["main"].kotlin.srcDirs("src")

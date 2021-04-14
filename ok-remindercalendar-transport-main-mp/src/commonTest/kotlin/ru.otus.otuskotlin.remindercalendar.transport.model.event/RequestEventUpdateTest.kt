@@ -24,7 +24,6 @@ class RequestEventUpdateTest {
         val dto: Message = RequestEventUpdate(
             requestId = "request-id",
             onResponseId = "response-id",
-            startTime = "2021-02-13T12:00:00",
             debug = Debug(mode = WorkModeDto.PROD),
             event = EventUpdateDto(
                 id = "id",
@@ -42,7 +41,6 @@ class RequestEventUpdateTest {
     "type": "RequestEventUpdate",
     "requestId": "request-id",
     "onResponseId": "response-id",
-    "startTime": "2021-02-13T12:00:00",
     "debug": {
         "mode": "PROD"
     },

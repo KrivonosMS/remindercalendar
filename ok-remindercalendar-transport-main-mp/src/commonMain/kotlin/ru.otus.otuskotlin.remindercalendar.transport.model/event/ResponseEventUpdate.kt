@@ -9,6 +9,7 @@ import ru.otus.otuskotlin.remindercalendar.transport.model.common.*
 data class ResponseEventUpdate(
     override val responseId: String? = null,
     override val onRequestId: String? = null,
+    override val startTime: String? = null,
     override val endTime: String? = null,
     override val errors: List<ErrorValueDto>? = null,
     override val status: ResponseStatusDto? = null,

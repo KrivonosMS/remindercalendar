@@ -27,7 +27,6 @@ class RequestEventFilterTest {
         val dto: Message = RequestEventFilter(
             requestId = "request-id",
             onResponseId = "response-id",
-            startTime = "2021-02-13T12:00:00",
             debug = Debug(mode = WorkModeDto.PROD),
             filter = EventFilterDto(
                 frequency = FrequencyDto.DAILY,
@@ -41,7 +40,6 @@ class RequestEventFilterTest {
     "type": "RequestEventFilter",
     "requestId": "request-id",
     "onResponseId": "response-id",
-    "startTime": "2021-02-13T12:00:00",
     "debug": {
         "mode": "PROD"
     },

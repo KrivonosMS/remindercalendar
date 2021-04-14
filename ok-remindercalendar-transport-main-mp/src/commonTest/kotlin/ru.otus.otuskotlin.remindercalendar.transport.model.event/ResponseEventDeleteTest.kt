@@ -24,6 +24,7 @@ class ResponseEventDeleteTest {
         val dto: Message = ResponseEventDelete(
             responseId = "response-id",
             onRequestId = "request-id",
+            startTime = "2021-02-13T11:59:00",
             endTime = "2021-02-13T12:00:00",
             status = ResponseStatusDto.SUCCESS,
             event = EventDto(
@@ -45,6 +46,7 @@ class ResponseEventDeleteTest {
     "type": "ResponseEventDelete",
     "responseId": "response-id",
     "onRequestId": "request-id",
+    "startTime": "2021-02-13T11:59:00",
     "endTime": "2021-02-13T12:00:00",
     "status": "SUCCESS",
     "event": {
