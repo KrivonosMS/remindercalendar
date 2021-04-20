@@ -24,6 +24,7 @@ class ResponseEventUpdateTest {
         val dto: Message = ResponseEventUpdate(
             responseId = "response-id",
             onRequestId = "request-id",
+            startTime = "2021-02-13T11:59:00",
             endTime = "2021-02-13T12:00:00",
             status = ResponseStatusDto.SUCCESS,
             event = EventDto(
@@ -44,6 +45,7 @@ class ResponseEventUpdateTest {
     "type": "ResponseEventUpdate",
     "responseId": "response-id",
     "onRequestId": "request-id",
+    "startTime": "2021-02-13T11:59:00",
     "endTime": "2021-02-13T12:00:00",
     "status": "SUCCESS",
     "event": {

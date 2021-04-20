@@ -16,7 +16,6 @@ class PipelineTest {
             execute(givenOperation)
             operation {
                 startIf {
-                    println("Check a: $a")
                     a.isNotEmpty()
                 }
                 execute { a += "b" }
@@ -40,7 +39,6 @@ class PipelineTest {
             execute(givenOperation)
             pipeline {
                 startIf {
-                    println("Check a: $a")
                     a.isNotEmpty()
                 }
                 execute { a += "b" }

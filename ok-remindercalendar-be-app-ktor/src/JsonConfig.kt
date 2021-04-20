@@ -1,5 +1,4 @@
-package com.example
-
+package ru.otus.otuskotlin.remindercalendar.ktor
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic

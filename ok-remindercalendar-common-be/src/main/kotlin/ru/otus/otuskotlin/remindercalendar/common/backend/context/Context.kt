@@ -1,12 +1,14 @@
 package ru.otus.otuskotlin.remindercalendar.common.backend.context
 
 import ru.otus.otuskotlin.remindercalendar.common.backend.model.*
+import java.time.LocalDateTime
 
 data class Context(
     var status: ContextStatus = ContextStatus.NONE,
     var stubCase: StubCase = StubCase.NONE,
+    var startTime: LocalDateTime = LocalDateTime.MIN,
 
-    var requestEventId: EventIdModel = EventIdModel.NONE,
+    var requestId: EventIdModel = EventIdModel.NONE,
     var requestEvent: EventModel = EventModel.NONE,
     var responseEvent: EventModel = EventModel.NONE,
 

@@ -1,35 +1,35 @@
-package controller
+package ru.otus.otuskotlin.remindercalendar.ktor.controller
 
-import com.example.jsonConfig
-import com.example.module
 import io.ktor.http.*
 import io.ktor.server.testing.*
 import io.mockk.every
 import io.mockk.mockkStatic
 import io.mockk.unmockkStatic
 import org.assertj.core.api.Assertions.assertThat
-import ru.otus.otuskotlin.remindercalendar.transport.model.common.ErrorValueDto
-import ru.otus.otuskotlin.remindercalendar.transport.model.common.FrequencyDto
-import ru.otus.otuskotlin.remindercalendar.transport.model.common.Message
-import ru.otus.otuskotlin.remindercalendar.transport.model.common.ResponseStatusDto
+import ru.otus.otuskotlin.remindercalendar.ktor.jsonConfig
+import ru.otus.otuskotlin.remindercalendar.ktor.module
+import ru.otus.otuskotlin.remindercalendar.transport.model.common.*
 import ru.otus.otuskotlin.remindercalendar.transport.model.event.*
 import java.time.LocalDateTime
+import java.util.*
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.fail
-
 
 internal class EventControllerTest {
     @BeforeTest
     fun mockInit() {
         mockkStatic(LocalDateTime::class)
         every { LocalDateTime.now() } returns LocalDateTime.of(2020, 1, 1, 10, 20)
+        mockkStatic(UUID::class)
+        every { UUID.randomUUID() } returns UUID.fromString("2b5edf5c-0388-4f55-9b05-675460e0462d")
     }
 
     @AfterTest
     fun destory() {
         unmockkStatic(LocalDateTime::class)
+        unmockkStatic(UUID::class)
     }
 
     @Test
@@ -39,6 +39,7 @@ internal class EventControllerTest {
                 val body = RequestEventRead(
                     requestId = "1",
                     eventId = "event-id",
+                    debug = Debug(stubCase = StubCase.SUCCESS),
                 )
                 val bodyString = jsonConfig.encodeToString(Message.serializer(), body)
                 setBody(bodyString)
@@ -53,8 +54,9 @@ internal class EventControllerTest {
                     .isInstanceOf(ResponseEventRead::class.java)
                     .isEqualToComparingFieldByField(
                         ResponseEventRead(
-                            responseId = "123",
+                            responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
                             onRequestId = "1",
+                            startTime = "2020-01-01T10:20:00",
                             endTime = "2020-01-01T10:20:00",
                             status = ResponseStatusDto.SUCCESS,
                             errors = listOf(),
@@ -79,6 +81,7 @@ internal class EventControllerTest {
             handleRequest(HttpMethod.Post, "/event/create") {
                 val body = RequestEventCreate(
                     requestId = "1",
+                    debug = Debug(stubCase = StubCase.SUCCESS),
                     event = EventCreateDto(
                         name = "name",
                         description = "description",
@@ -101,8 +104,9 @@ internal class EventControllerTest {
                     .isInstanceOf(ResponseEventCreate::class.java)
                     .isEqualToComparingFieldByField(
                         ResponseEventCreate(
-                            responseId = "123",
+                            responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
                             onRequestId = "1",
+                            startTime = "2020-01-01T10:20:00",
                             endTime = "2020-01-01T10:20:00",
                             status = ResponseStatusDto.SUCCESS,
                             errors = listOf(),
@@ -127,6 +131,7 @@ internal class EventControllerTest {
             handleRequest(HttpMethod.Post, "/event/update") {
                 val body = RequestEventUpdate(
                     requestId = "1",
+                    debug = Debug(stubCase = StubCase.SUCCESS),
                     event = EventUpdateDto(
                         id = "id",
                         name = "name",
@@ -150,8 +155,9 @@ internal class EventControllerTest {
                     .isInstanceOf(ResponseEventUpdate::class.java)
                     .isEqualToComparingFieldByField(
                         ResponseEventUpdate(
-                            responseId = "123",
+                            responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
                             onRequestId = "1",
+                            startTime = "2020-01-01T10:20:00",
                             endTime = "2020-01-01T10:20:00",
                             status = ResponseStatusDto.SUCCESS,
                             errors = listOf(),
@@ -176,6 +182,7 @@ internal class EventControllerTest {
             handleRequest(HttpMethod.Post, "/event/delete") {
                 val body = RequestEventDelete(
                     requestId = "1",
+                    debug = Debug(stubCase = StubCase.SUCCESS),
                     eventId = "event-id",
                 )
                 val bodyString = jsonConfig.encodeToString(Message.serializer(), body)
@@ -191,8 +198,9 @@ internal class EventControllerTest {
                     .isInstanceOf(ResponseEventDelete::class.java)
                     .isEqualToComparingFieldByField(
                         ResponseEventDelete(
-                            responseId = "123",
+                            responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
                             onRequestId = "1",
+                            startTime = "2020-01-01T10:20:00",
                             endTime = "2020-01-01T10:20:00",
                             status = ResponseStatusDto.SUCCESS,
                             deleted = true,
@@ -218,6 +226,7 @@ internal class EventControllerTest {
             handleRequest(HttpMethod.Post, "/event/filter") {
                 val body = RequestEventFilter(
                     requestId = "1",
+                    debug = Debug(stubCase = StubCase.SUCCESS),
                     filter = EventFilterDto(
                         frequency = FrequencyDto.YEARLY,
                         from = 10,
@@ -237,8 +246,9 @@ internal class EventControllerTest {
                     .isInstanceOf(ResponseEventFilter::class.java)
                     .isEqualToComparingFieldByField(
                         ResponseEventFilter(
-                            responseId = "123",
+                            responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
                             onRequestId = "1",
+                            startTime = "2020-01-01T10:20:00",
                             endTime = "2020-01-01T10:20:00",
                             status = ResponseStatusDto.SUCCESS,
                             errors = listOf(),

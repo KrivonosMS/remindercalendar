@@ -10,3 +10,27 @@ val groupName: String by project
 
 group = "ru.krivonos.remindercalendar"
 version = projectVersion
+
+subprojects {
+    group = rootProject.group
+    version = rootProject.version
+
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url = uri("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers") }
+        maven { url = uri("https://repo.spring.io/milestone") }
+        maven { url = uri("https://jitpack.io") }
+    }
+
+    plugins.withId("org.jetbrains.kotlin.jvm") {
+        tasks {
+            withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+                kotlinOptions {
+                    freeCompilerArgs = listOf("-Xjsr305=strict")
+                    jvmTarget = "11"
+                }
+            }
+        }
+    }
+}

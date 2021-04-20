@@ -26,7 +26,6 @@ class RequestEventDeleteTest {
         val dto: Message = RequestEventDelete(
             requestId = "request-id",
             onResponseId = "response-id",
-            startTime = "2021-02-13T12:00:00",
             debug = Debug(mode = WorkModeDto.PROD),
             eventId = "event-id"
         )
@@ -36,7 +35,6 @@ class RequestEventDeleteTest {
     "type": "RequestEventDelete",
     "requestId": "request-id",
     "onResponseId": "response-id",
-    "startTime": "2021-02-13T12:00:00",
     "debug": {
         "mode": "PROD"
     },

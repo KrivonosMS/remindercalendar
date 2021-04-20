@@ -27,7 +27,6 @@ class RequestEventCreateTest {
         val dto: Message = RequestEventCreate(
             requestId = "request-id",
             onResponseId = "response-id",
-            startTime = "2021-02-13T12:00:00",
             debug = Debug(mode = WorkModeDto.PROD),
             event = EventCreateDto(
                 name = "День рождения жены",
@@ -45,7 +44,6 @@ class RequestEventCreateTest {
     "type": "RequestEventCreate",
     "requestId": "request-id",
     "onResponseId": "response-id",
-    "startTime": "2021-02-13T12:00:00",
     "debug": {
         "mode": "PROD"
     },
