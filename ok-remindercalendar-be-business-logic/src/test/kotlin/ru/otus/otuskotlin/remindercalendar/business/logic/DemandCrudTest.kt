@@ -75,7 +75,7 @@ class EventCrudTest {
         val givenCrud = EventCrud()
         val givenContext = Context(
             stubCase = StubCase.EVENT_READ_SUCCESS,
-            requestId = EventIdModel("test-id")
+            requestEventId = EventIdModel("test-id")
         )
 
         runBlockingTest { givenCrud.read(givenContext) }
@@ -109,7 +109,7 @@ class EventCrudTest {
                 userId = UserId("test-user-id"),
                 mobile = "test-mobile",
             ),
-            requestId = EventIdModel("id")
+            requestEventId = EventIdModel("id")
         )
 
         runBlockingTest { givenCrud.update(givenContext) }
@@ -134,7 +134,7 @@ class EventCrudTest {
         val givenCrud = EventCrud()
         val givenContext = Context(
             stubCase = StubCase.EVENT_DELETE_SUCCESS,
-            requestId = EventIdModel("test-id"),
+            requestEventId = EventIdModel("test-id"),
         )
 
         runBlockingTest { givenCrud.delete(givenContext) }

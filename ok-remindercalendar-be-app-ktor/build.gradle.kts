@@ -39,6 +39,8 @@ dependencies {
     implementation(project(":ok-remindercalendar-transport-main-mp"))
     implementation(project(":ok-remindercalendar-be-mappers-mp"))
     implementation(project(":ok-remindercalendar-be-business-logic"))
+    implementation(project(":ok-remindercalendar-be-repository-inmemory"))
+    implementation(project(":ok-remindercalendar-be-repository-sql"))
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")

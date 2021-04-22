@@ -52,6 +52,7 @@ internal class KafkaControllerTest {
             module(
                 kafkaTestConsumer = consumer,
                 kafkaTestProducer = producer,
+                testing = true,
             )
         }) {
             runBlocking {
@@ -64,7 +65,7 @@ internal class KafkaControllerTest {
                         event = EventCreateDto(
                             name = "День рождения жены",
                             description = "Этот день самый главный в году. Про него никак нельзя забыть",
-                            startSchedule = "2021-02-25T13:40:00",
+                            startSchedule = "2020-02-25T07:22:00",
                             userId = "user-id",
                             frequency = FrequencyDto.YEARLY,
                             mobile = "+7123456789",
@@ -93,7 +94,7 @@ internal class KafkaControllerTest {
         "id": "test-id",
         "name": "name",
         "description": "test-description",
-        "startSchedule": "2020-02-25T07:22:00",
+        "startSchedule": "2020-02-25 07:22",
         "userId": "test-user-id",
         "frequency": "DAILY",
         "mobile": "test-mobile"

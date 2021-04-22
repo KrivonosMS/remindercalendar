@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
 import ru.otus.otuskotlin.remindercalendar.common.backend.model.FrequencyModel
-import ru.otus.otuskotlin.remindercalendar.common.mp.test.ru.otus.otuskotlin.remindercalendar.common.mp.ValidatorFrequency
+import ru.otus.otuskotlin.remindercalendar.common.mp.ValidatorFrequency
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 
