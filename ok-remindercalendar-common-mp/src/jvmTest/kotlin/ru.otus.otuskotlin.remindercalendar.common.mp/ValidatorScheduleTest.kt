@@ -2,7 +2,7 @@ package ru.otus.otuskotlin.remindercalendar.common.mp
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import ru.otus.otuskotlin.remindercalendar.common.mp.test.ru.otus.otuskotlin.remindercalendar.common.mp.ValidatorSchedule
+import ru.otus.otuskotlin.remindercalendar.common.mp.ValidatorSchedule
 import java.time.LocalDateTime
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse

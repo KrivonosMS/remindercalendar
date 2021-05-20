@@ -19,7 +19,7 @@ class EventMapperTest {
     @BeforeEach
     fun mockInit() {
         mockkStatic(LocalDateTime::class)
-        every { LocalDateTime.now() } returns LocalDateTime.of(2020, 1,1, 10, 20)
+        every { LocalDateTime.now() } returns LocalDateTime.of(2020, 1, 1, 10, 20)
         mockkStatic(UUID::class)
         every { UUID.randomUUID() } returns UUID.fromString("2b5edf5c-0388-4f55-9b05-675460e0462d")
     }
@@ -43,7 +43,7 @@ class EventMapperTest {
                 frequency = FrequencyDto.YEARLY,
                 mobile = "+7123456789",
 
-            )
+                )
         )
         val context = Context(
             startTime = LocalDateTime.now().minusMinutes(1),
@@ -51,7 +51,7 @@ class EventMapperTest {
 
         context.request(requestEventCreate)
 
-        assertThat(context.requestId).isEqualTo(EventIdModel("create-id"))
+        assertThat(context.requestEventId).isEqualTo(EventIdModel("create-id"))
         assertThat(context.requestEvent).isEqualTo(
             EventModel(
                 id = EventIdModel.NONE,
@@ -84,7 +84,7 @@ class EventMapperTest {
 
         context.request(requestEventUpdate)
 
-        assertThat(context.requestId).isEqualTo(EventIdModel("create-id"))
+        assertThat(context.requestEventId).isEqualTo(EventIdModel("create-id"))
         assertThat(context.requestEvent).isEqualTo(
             EventModel(
                 id = EventIdModel("event-id"),
@@ -101,7 +101,7 @@ class EventMapperTest {
     @Test
     fun `set request read event`() {
         val requestEventRead = RequestEventRead(
-            requestId = "create-id",
+            requestId = "request-id",
             debug = Debug(mode = WorkModeDto.PROD),
             eventId = "event-id"
         )
@@ -109,14 +109,14 @@ class EventMapperTest {
 
         context.request(requestEventRead)
 
-        assertThat(context.requestId).isEqualTo(EventIdModel("create-id"))
+        assertThat(context.requestEventId).isEqualTo(EventIdModel("event-id"))
         assertThat(context.requestEvent).isEqualTo(EventModel.NONE)
     }
 
     @Test
     fun `set request delete event`() {
         val requestEventDelete = RequestEventDelete(
-            requestId = "create-id",
+            requestId = "request-id",
             debug = Debug(mode = WorkModeDto.PROD),
             eventId = "event-id"
         )
@@ -124,7 +124,7 @@ class EventMapperTest {
 
         context.request(requestEventDelete)
 
-        assertThat(context.requestId).isEqualTo(EventIdModel("create-id"))
+        assertThat(context.requestEventId).isEqualTo(EventIdModel("event-id"))
         assertThat(context.requestEvent).isEqualTo(EventModel.NONE)
     }
 
@@ -154,7 +154,8 @@ class EventMapperTest {
     @Test
     fun `convert to response create event when error`() {
         val context = Context(
-            requestId = EventIdModel("request-id"),
+            onRequestId = "request-id",
+            requestEventId = EventIdModel("event-id"),
             startTime = LocalDateTime.now().minusMinutes(1),
         )
         context.errors = mutableListOf(
@@ -188,7 +189,8 @@ class EventMapperTest {
     @Test
     fun `convert to response create event without error`() {
         val context = Context(
-            requestId = EventIdModel("request-id"),
+            onRequestId = "request-id",
+            requestEventId = EventIdModel("event-id"),
             startTime = LocalDateTime.now().minusMinutes(1),
         )
         context.responseEvent = EventModel(
@@ -214,7 +216,7 @@ class EventMapperTest {
                     id = "event-id",
                     name = "День рождения жены",
                     description = "Этот день самый главный праздник в году. Про него никак нельзя забыть",
-                    startSchedule = "2021-02-25T13:40:00",
+                    startSchedule = "2021-02-25 13:40",
                     userId = "user-id",
                     frequency = FrequencyDto.YEARLY,
                     mobile = "+7123456789",
@@ -227,7 +229,8 @@ class EventMapperTest {
     @Test
     fun `convert to response update event when error`() {
         val context = Context(
-            requestId = EventIdModel("request-id"),
+            onRequestId = "request-id",
+            requestEventId = EventIdModel("event-id"),
             startTime = LocalDateTime.now().minusMinutes(1),
         )
         context.errors = mutableListOf(
@@ -261,7 +264,8 @@ class EventMapperTest {
     @Test
     fun `convert to response update event without error`() {
         val context = Context(
-            requestId = EventIdModel("request-id"),
+            onRequestId = "request-id",
+            requestEventId = EventIdModel("event-id"),
             startTime = LocalDateTime.now().minusMinutes(1),
         )
         context.responseEvent = EventModel(
@@ -287,7 +291,7 @@ class EventMapperTest {
                     id = "event-id",
                     name = "День рождения жены",
                     description = "Этот день самый главный праздник в году. Про него никак нельзя забыть",
-                    startSchedule = "2021-02-25T13:40:00",
+                    startSchedule = "2021-02-25 13:40",
                     userId = "user-id",
                     frequency = FrequencyDto.YEARLY,
                     mobile = "+7123456789",
@@ -300,7 +304,8 @@ class EventMapperTest {
     @Test
     fun `convert to response read event when error`() {
         val context = Context(
-            requestId = EventIdModel("request-id"),
+            onRequestId = "request-id",
+            requestEventId = EventIdModel("event-id"),
             startTime = LocalDateTime.now().minusMinutes(1),
         )
         context.errors = mutableListOf(
@@ -334,7 +339,8 @@ class EventMapperTest {
     @Test
     fun `convert to response read event without error`() {
         val context = Context(
-            requestId = EventIdModel("request-id"),
+            onRequestId = "request-id",
+            requestEventId = EventIdModel("event-id"),
             startTime = LocalDateTime.now().minusMinutes(1),
         )
         context.responseEvent = EventModel(
@@ -360,7 +366,7 @@ class EventMapperTest {
                     id = "event-id",
                     name = "День рождения жены",
                     description = "Этот день самый главный праздник в году. Про него никак нельзя забыть",
-                    startSchedule = "2021-02-25T13:40:00",
+                    startSchedule = "2021-02-25 13:40",
                     userId = "user-id",
                     frequency = FrequencyDto.YEARLY,
                     mobile = "+7123456789",
@@ -373,7 +379,8 @@ class EventMapperTest {
     @Test
     fun `convert to response delete event when error`() {
         val context = Context(
-            requestId = EventIdModel("request-id"),
+            onRequestId = "request-id",
+            requestEventId = EventIdModel("event-id"),
             startTime = LocalDateTime.now().minusMinutes(1),
         )
         context.errors = mutableListOf(
@@ -408,7 +415,8 @@ class EventMapperTest {
     @Test
     fun `convert to response delete event without error`() {
         val context = Context(
-            requestId = EventIdModel("request-id"),
+            onRequestId = "request-id",
+            requestEventId = EventIdModel("event-id"),
             startTime = LocalDateTime.now().minusMinutes(1),
         )
         context.responseEvent = EventModel(
@@ -434,7 +442,7 @@ class EventMapperTest {
                     id = "event-id",
                     name = "День рождения жены",
                     description = "Этот день самый главный праздник в году. Про него никак нельзя забыть",
-                    startSchedule = "2021-02-25T13:40:00",
+                    startSchedule = "2021-02-25 13:40",
                     userId = "user-id",
                     frequency = FrequencyDto.YEARLY,
                     mobile = "+7123456789",
@@ -449,7 +457,8 @@ class EventMapperTest {
     @Test
     fun `convert to response event filter when error`() {
         val context = Context(
-            requestId = EventIdModel("request-id"),
+            onRequestId = "request-id",
+            requestEventId = EventIdModel("event-id"),
             startTime = LocalDateTime.now().minusMinutes(1),
         )
         context.errors = mutableListOf(
@@ -484,7 +493,8 @@ class EventMapperTest {
     @Test
     fun `convert to response event filter without error`() {
         val context = Context(
-            requestId = EventIdModel("request-id"),
+            onRequestId = "request-id",
+            requestEventId = EventIdModel("event-id"),
             startTime = LocalDateTime.now().minusMinutes(1),
             eventsCount = 103,
         )
@@ -514,7 +524,7 @@ class EventMapperTest {
                         id = "event-id",
                         name = "День рождения жены",
                         description = "Этот день самый главный праздник в году. Про него никак нельзя забыть",
-                        startSchedule = "2021-02-25T13:40:00",
+                        startSchedule = "2021-02-25 13:40",
                         userId = "user-id",
                         frequency = FrequencyDto.YEARLY,
                         mobile = "+7123456789",

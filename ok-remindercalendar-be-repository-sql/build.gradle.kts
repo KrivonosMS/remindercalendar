@@ -1,0 +1,33 @@
+plugins {
+    kotlin("jvm")
+}
+
+group = rootProject.group
+version = rootProject.version
+
+dependencies {
+    val exposedVersion: String by project
+    val testContainersVersion: String by project
+    val postgresDriverVersion: String by project
+    val mockkVersion: String by project
+
+    implementation(kotlin("stdlib"))
+
+    implementation(project(":ok-remindercalendar-common-be"))
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    implementation("org.postgresql:postgresql:$postgresDriverVersion")
+
+    testImplementation(kotlin("test-junit5"))
+    testImplementation(platform("org.junit:junit-bom:5.7.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.testcontainers:postgresql:$testContainersVersion")
+    testImplementation("io.mockk:mockk:$mockkVersion")
+}
+
+tasks {
+    test {
+        useJUnitPlatform()
+    }
+}

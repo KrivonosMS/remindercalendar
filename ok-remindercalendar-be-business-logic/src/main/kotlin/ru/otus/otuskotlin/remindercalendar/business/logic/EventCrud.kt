@@ -6,8 +6,12 @@ import ru.otus.otuskotlin.remindercalendar.business.logic.pipelines.EventFilter
 import ru.otus.otuskotlin.remindercalendar.business.logic.pipelines.EventRead
 import ru.otus.otuskotlin.remindercalendar.business.logic.pipelines.EventUpdate
 import ru.otus.otuskotlin.remindercalendar.common.backend.context.Context
+import ru.otus.otuskotlin.remindercalendar.common.backend.repositories.EventRepository
 
-class EventCrud {
+class EventCrud(
+    private val eventRepositoryProd: EventRepository = EventRepository.NONE,
+    private val eventRepositoryTest: EventRepository = EventRepository.NONE,
+) {
     suspend fun filter(context: Context) {
         EventFilter.execute(context.apply(this::configureContext))
     }
@@ -29,6 +33,8 @@ class EventCrud {
     }
 
     private fun configureContext(context: Context) {
+        context.eventRepositoryTest = eventRepositoryTest
+        context.eventRepositoryProd = eventRepositoryProd
 
     }
 }
