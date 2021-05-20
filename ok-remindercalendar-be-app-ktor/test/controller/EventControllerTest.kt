@@ -18,12 +18,15 @@ import kotlin.test.Test
 import kotlin.test.fail
 
 internal class EventControllerTest {
+
+    private val guid = "2b5edf5c-0388-4f55-9b05-675460e0462d"
+
     @BeforeTest
     fun mockInit() {
         mockkStatic(LocalDateTime::class)
         every { LocalDateTime.now() } returns LocalDateTime.of(2020, 1, 1, 10, 20)
         mockkStatic(UUID::class)
-        every { UUID.randomUUID() } returns UUID.fromString("2b5edf5c-0388-4f55-9b05-675460e0462d")
+        every { UUID.randomUUID() } returns UUID.fromString(guid)
     }
 
     @AfterTest
@@ -54,7 +57,7 @@ internal class EventControllerTest {
                     .isInstanceOf(ResponseEventRead::class.java)
                     .isEqualToComparingFieldByField(
                         ResponseEventRead(
-                            responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                            responseId = guid,
                             onRequestId = "1",
                             startTime = "2020-01-01T10:20:00",
                             endTime = "2020-01-01T10:20:00",
@@ -64,7 +67,7 @@ internal class EventControllerTest {
                                 id = "test-id",
                                 name = "name",
                                 description = "test-description",
-                                startSchedule = "2020-02-25 07:22",
+                                startSchedule = "2020-02-25T07:22:00",
                                 userId = "test-user-id",
                                 frequency = FrequencyDto.DAILY,
                                 mobile = "test-mobile",
@@ -104,7 +107,7 @@ internal class EventControllerTest {
                     .isInstanceOf(ResponseEventCreate::class.java)
                     .isEqualToComparingFieldByField(
                         ResponseEventCreate(
-                            responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                            responseId = guid,
                             onRequestId = "1",
                             startTime = "2020-01-01T10:20:00",
                             endTime = "2020-01-01T10:20:00",
@@ -114,7 +117,7 @@ internal class EventControllerTest {
                                 id = "test-id",
                                 name = "name",
                                 description = "test-description",
-                                startSchedule = "2020-02-25 07:22",
+                                startSchedule = "2020-02-25T07:22:00",
                                 userId = "test-user-id",
                                 frequency = FrequencyDto.DAILY,
                                 mobile = "test-mobile",
@@ -155,7 +158,7 @@ internal class EventControllerTest {
                     .isInstanceOf(ResponseEventUpdate::class.java)
                     .isEqualToComparingFieldByField(
                         ResponseEventUpdate(
-                            responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                            responseId = guid,
                             onRequestId = "1",
                             startTime = "2020-01-01T10:20:00",
                             endTime = "2020-01-01T10:20:00",
@@ -165,7 +168,7 @@ internal class EventControllerTest {
                                 id = "test-id",
                                 name = "name",
                                 description = "test-description",
-                                startSchedule = "2020-02-25 07:22",
+                                startSchedule = "2020-02-25T07:22:00",
                                 userId = "test-user-id",
                                 frequency = FrequencyDto.DAILY,
                                 mobile = "test-mobile",
@@ -198,7 +201,7 @@ internal class EventControllerTest {
                     .isInstanceOf(ResponseEventDelete::class.java)
                     .isEqualToComparingFieldByField(
                         ResponseEventDelete(
-                            responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                            responseId = guid,
                             onRequestId = "1",
                             startTime = "2020-01-01T10:20:00",
                             endTime = "2020-01-01T10:20:00",
@@ -209,7 +212,7 @@ internal class EventControllerTest {
                                 id = "test-id",
                                 name = "name",
                                 description = "test-description",
-                                startSchedule = "2020-02-25 07:22",
+                                startSchedule = "2020-02-25T07:22:00",
                                 userId = "test-user-id",
                                 frequency = FrequencyDto.DAILY,
                                 mobile = "test-mobile",
@@ -246,7 +249,7 @@ internal class EventControllerTest {
                     .isInstanceOf(ResponseEventFilter::class.java)
                     .isEqualToComparingFieldByField(
                         ResponseEventFilter(
-                            responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                            responseId = guid,
                             onRequestId = "1",
                             startTime = "2020-01-01T10:20:00",
                             endTime = "2020-01-01T10:20:00",
@@ -257,7 +260,7 @@ internal class EventControllerTest {
                                     id = "test-id",
                                     name = "name",
                                     description = "test-description",
-                                    startSchedule = "2020-02-25 07:22",
+                                    startSchedule = "2020-02-25T07:22:00",
                                     userId = "test-user-id",
                                     frequency = FrequencyDto.DAILY,
                                     mobile = "test-mobile",

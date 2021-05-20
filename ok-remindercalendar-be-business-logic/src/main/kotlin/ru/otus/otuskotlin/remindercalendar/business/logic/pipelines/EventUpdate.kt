@@ -63,7 +63,7 @@ object EventUpdate : Operation<Context> by pipeline({
                 errors.add(
                     ErrorValueModel(
                         code = "event-repository-update-error",
-                        message = t.message ?: ""
+                        message = "Внутренняя ошибка, обратитесь к администратору"
                     )
                 )
             }

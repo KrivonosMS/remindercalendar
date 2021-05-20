@@ -9,5 +9,6 @@ interface ItemModel {
     val startSchedule: LocalDateTime
     val frequency: FrequencyModel
     val userId: UserId
+    val owner: UserModel
     val mobile: String
 }

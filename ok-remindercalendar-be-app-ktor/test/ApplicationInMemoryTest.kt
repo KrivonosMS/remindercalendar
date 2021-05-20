@@ -25,10 +25,12 @@ import kotlin.time.toDuration
 @OptIn(ExperimentalTime::class)
 internal class ApplicationInMemoryTest {
 
+    private val guid = "2b5edf5c-0388-4f55-9b05-675460e0462d"
+
     @BeforeTest
     fun mockInit() {
         mockkStatic(UUID::class)
-        every { UUID.randomUUID() } returns UUID.fromString("2b5edf5c-0388-4f55-9b05-675460e0462d")
+        every { UUID.randomUUID() } returns UUID.fromString(guid)
     }
 
     @AfterTest
@@ -88,6 +90,7 @@ internal class ApplicationInMemoryTest {
             module(
                 testEventRepository = eventRepositoryInMemory,
                 testing = true,
+                authOff = true,
             )
         }) {
             handleRequest(HttpMethod.Post, RestEndpoints.eventRead) {
@@ -103,7 +106,6 @@ internal class ApplicationInMemoryTest {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
                 val jsonString = response.content ?: fail("Null response json")
-                println(jsonString)
 
                 val responseEventRead =
                     (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseEventRead)
@@ -113,7 +115,7 @@ internal class ApplicationInMemoryTest {
                 assertThat(responseEventRead.onRequestId).isEqualTo("1")
                 assertThat(responseEventRead.event?.id).isEqualTo(event1.id.id)
                 assertThat(responseEventRead.event?.name).isEqualTo(event1.name)
-                assertThat(responseEventRead.event?.startSchedule).isEqualTo("2020-02-25 07:22")
+                assertThat(responseEventRead.event?.startSchedule).isEqualTo("2020-02-25T07:22:00")
                 assertThat(responseEventRead.event?.description).isEqualTo(event1.description)
                 assertThat(responseEventRead.event?.mobile).isEqualTo(event1.mobile)
                 assertThat(responseEventRead.event?.frequency).isEqualTo(event1.frequency.toFrequencyDto())
@@ -149,7 +151,6 @@ internal class ApplicationInMemoryTest {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
                 val jsonString = response.content ?: fail("Null response json")
-                println(jsonString)
 
                 val responseEventCreate =
                     (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseEventCreate)
@@ -157,9 +158,9 @@ internal class ApplicationInMemoryTest {
 
                 assertThat(responseEventCreate.status).isEqualTo(ResponseStatusDto.SUCCESS)
                 assertThat(responseEventCreate.onRequestId).isEqualTo("1")
-                assertThat(responseEventCreate.event?.id).isEqualTo("2b5edf5c-0388-4f55-9b05-675460e0462d")
+                assertThat(responseEventCreate.event?.id).isEqualTo(guid)
                 assertThat(responseEventCreate.event?.name).isEqualTo("name")
-                assertThat(responseEventCreate.event?.startSchedule).isEqualTo("2021-02-25 13:40")
+                assertThat(responseEventCreate.event?.startSchedule).isEqualTo("2021-02-25T13:40:00")
                 assertThat(responseEventCreate.event?.description).isEqualTo("description")
                 assertThat(responseEventCreate.event?.mobile).isEqualTo("+7123456789")
                 assertThat(responseEventCreate.event?.frequency).isEqualTo(FrequencyDto.YEARLY)
@@ -197,7 +198,6 @@ internal class ApplicationInMemoryTest {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
                 val jsonString = response.content ?: fail("Null response json")
-                println(jsonString)
 
                 val responseEventUpdate =
                     (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseEventUpdate)
@@ -207,7 +207,7 @@ internal class ApplicationInMemoryTest {
                 assertThat(responseEventUpdate.onRequestId).isEqualTo("1")
                 assertThat(responseEventUpdate.event?.id).isEqualTo(event2.id.id)
                 assertThat(responseEventUpdate.event?.name).isEqualTo("name")
-                assertThat(responseEventUpdate.event?.startSchedule).isEqualTo("2021-02-25 13:40")
+                assertThat(responseEventUpdate.event?.startSchedule).isEqualTo("2021-02-25T13:40:00")
                 assertThat(responseEventUpdate.event?.description).isEqualTo("description")
                 assertThat(responseEventUpdate.event?.mobile).isEqualTo("+7123456789")
                 assertThat(responseEventUpdate.event?.frequency).isEqualTo(FrequencyDto.YEARLY)
@@ -236,7 +236,6 @@ internal class ApplicationInMemoryTest {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
                 val jsonString = response.content ?: fail("Null response json")
-                println(jsonString)
 
                 val responseEventDelete =
                     (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseEventDelete)
@@ -246,7 +245,7 @@ internal class ApplicationInMemoryTest {
                 assertThat(responseEventDelete.onRequestId).isEqualTo("1")
                 assertThat(responseEventDelete.event?.id).isEqualTo(event3.id.id)
                 assertThat(responseEventDelete.event?.name).isEqualTo(event3.name)
-                assertThat(responseEventDelete.event?.startSchedule).isEqualTo("2020-02-25 07:22")
+                assertThat(responseEventDelete.event?.startSchedule).isEqualTo("2020-02-25T07:22:00")
                 assertThat(responseEventDelete.event?.description).isEqualTo(event3.description)
                 assertThat(responseEventDelete.event?.mobile).isEqualTo(event3.mobile)
                 assertThat(responseEventDelete.event?.frequency).isEqualTo(event3.frequency.toFrequencyDto())
@@ -279,7 +278,6 @@ internal class ApplicationInMemoryTest {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
                 val jsonString = response.content ?: fail("Null response json")
-                println(jsonString)
 
                 val responseEventFilter =
                     (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseEventFilter)

@@ -58,7 +58,7 @@ object EventCreate : Operation<Context> by pipeline({
                 errors.add(
                     ErrorValueModel(
                         code = "event-repository-create-error",
-                        message = t.message?:"")
+                        message = "Внутренняя ошибка, обратитесь к администратору")
                 )
             }
         }

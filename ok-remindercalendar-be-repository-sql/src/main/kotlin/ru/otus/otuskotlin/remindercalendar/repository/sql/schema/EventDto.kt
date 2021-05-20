@@ -20,7 +20,7 @@ class EventDto(id: EntityID<UUID>) : UUIDEntity(id) {
         id = EventIdModel(id.value.toString()),
         name = name?: "",
         description = description?: "",
-        startSchedule = startSchedule?.let { LocalDateTime.parse(it, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) },
+        startSchedule = startSchedule?.let { LocalDateTime.parse(it, DateTimeFormatter.ISO_DATE_TIME) },
         frequency = FrequencyModel.valueOf(frequency),
         userId = userId?.let { UserId(userId) } ?: UserId.NONE,
         mobile = mobile?: "",
@@ -29,7 +29,7 @@ class EventDto(id: EntityID<UUID>) : UUIDEntity(id) {
     fun of(model: EventModel) {
         name = model.name
         description = model.description
-        startSchedule = model.startSchedule.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+        startSchedule = model.startSchedule.format(DateTimeFormatter.ISO_DATE_TIME)
         frequency = model.frequency.toString()
         userId =  model.userId.id
         mobile = model.mobile
