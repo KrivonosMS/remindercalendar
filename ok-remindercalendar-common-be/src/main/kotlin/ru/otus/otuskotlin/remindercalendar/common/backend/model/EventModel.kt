@@ -10,6 +10,7 @@ data class EventModel(
     override val frequency: FrequencyModel = FrequencyModel.NONE,
     override val userId: UserId = UserId.NONE,
     override val mobile: String = "",
+    override val owner: UserModel = UserModel.NONE,
 ) : ItemModel {
     companion object {
         val NONE = EventModel()

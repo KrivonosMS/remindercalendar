@@ -39,7 +39,7 @@ object EventFilter : Operation<Context> by pipeline({
                 errors.add(
                     ErrorValueModel(
                         code = "event-repository-filter-error",
-                        message = t.message ?: ""
+                        message = "Внутренняя ошибка, обратитесь к администратору"
                     )
                 )
             }

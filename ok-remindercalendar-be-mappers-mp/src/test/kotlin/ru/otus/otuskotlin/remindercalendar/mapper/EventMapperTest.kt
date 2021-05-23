@@ -16,12 +16,15 @@ import java.util.*
 import kotlin.test.Test
 
 class EventMapperTest {
+
+    private val guid = "2b5edf5c-0388-4f55-9b05-675460e0462d"
+
     @BeforeEach
     fun mockInit() {
         mockkStatic(LocalDateTime::class)
         every { LocalDateTime.now() } returns LocalDateTime.of(2020, 1, 1, 10, 20)
         mockkStatic(UUID::class)
-        every { UUID.randomUUID() } returns UUID.fromString("2b5edf5c-0388-4f55-9b05-675460e0462d")
+        every { UUID.randomUUID() } returns UUID.fromString(guid)
     }
 
     @AfterEach
@@ -171,7 +174,7 @@ class EventMapperTest {
         assertThat(responseEventCreateDto).isEqualTo(
             ResponseEventCreate(
                 onRequestId = "request-id",
-                responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                responseId = guid,
                 startTime = "2020-01-01T10:19:00",
                 endTime = "2020-01-01T10:20:00",
                 status = ResponseStatusDto.ERROR,
@@ -208,7 +211,7 @@ class EventMapperTest {
         assertThat(responseEventCreateDto).isEqualTo(
             ResponseEventCreate(
                 onRequestId = "request-id",
-                responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                responseId = guid,
                 startTime = "2020-01-01T10:19:00",
                 endTime = "2020-01-01T10:20:00",
                 status = ResponseStatusDto.SUCCESS,
@@ -216,7 +219,7 @@ class EventMapperTest {
                     id = "event-id",
                     name = "День рождения жены",
                     description = "Этот день самый главный праздник в году. Про него никак нельзя забыть",
-                    startSchedule = "2021-02-25 13:40",
+                    startSchedule = "2021-02-25T13:40:00",
                     userId = "user-id",
                     frequency = FrequencyDto.YEARLY,
                     mobile = "+7123456789",
@@ -246,7 +249,7 @@ class EventMapperTest {
         assertThat(responseEventUpdate).isEqualTo(
             ResponseEventUpdate(
                 onRequestId = "request-id",
-                responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                responseId = guid,
                 startTime = "2020-01-01T10:19:00",
                 endTime = "2020-01-01T10:20:00",
                 status = ResponseStatusDto.ERROR,
@@ -283,7 +286,7 @@ class EventMapperTest {
         assertThat(responseEventUpdate).isEqualTo(
             ResponseEventUpdate(
                 onRequestId = "request-id",
-                responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                responseId = guid,
                 startTime = "2020-01-01T10:19:00",
                 endTime = "2020-01-01T10:20:00",
                 status = ResponseStatusDto.SUCCESS,
@@ -291,7 +294,7 @@ class EventMapperTest {
                     id = "event-id",
                     name = "День рождения жены",
                     description = "Этот день самый главный праздник в году. Про него никак нельзя забыть",
-                    startSchedule = "2021-02-25 13:40",
+                    startSchedule = "2021-02-25T13:40:00",
                     userId = "user-id",
                     frequency = FrequencyDto.YEARLY,
                     mobile = "+7123456789",
@@ -321,7 +324,7 @@ class EventMapperTest {
         assertThat(responseEventRead).isEqualTo(
             ResponseEventRead(
                 onRequestId = "request-id",
-                responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                responseId = guid,
                 startTime = "2020-01-01T10:19:00",
                 endTime = "2020-01-01T10:20:00",
                 status = ResponseStatusDto.ERROR,
@@ -358,7 +361,7 @@ class EventMapperTest {
         assertThat(responseEventRead).isEqualTo(
             ResponseEventRead(
                 onRequestId = "request-id",
-                responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                responseId = guid,
                 startTime = "2020-01-01T10:19:00",
                 endTime = "2020-01-01T10:20:00",
                 status = ResponseStatusDto.SUCCESS,
@@ -366,7 +369,7 @@ class EventMapperTest {
                     id = "event-id",
                     name = "День рождения жены",
                     description = "Этот день самый главный праздник в году. Про него никак нельзя забыть",
-                    startSchedule = "2021-02-25 13:40",
+                    startSchedule = "2021-02-25T13:40:00",
                     userId = "user-id",
                     frequency = FrequencyDto.YEARLY,
                     mobile = "+7123456789",
@@ -396,7 +399,7 @@ class EventMapperTest {
         assertThat(responseEventDelete).isEqualTo(
             ResponseEventDelete(
                 onRequestId = "request-id",
-                responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                responseId = guid,
                 startTime = "2020-01-01T10:19:00",
                 endTime = "2020-01-01T10:20:00",
                 status = ResponseStatusDto.ERROR,
@@ -434,7 +437,7 @@ class EventMapperTest {
         assertThat(responseEventDelete).isEqualTo(
             ResponseEventDelete(
                 onRequestId = "request-id",
-                responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                responseId = guid,
                 startTime = "2020-01-01T10:19:00",
                 endTime = "2020-01-01T10:20:00",
                 status = ResponseStatusDto.SUCCESS,
@@ -442,7 +445,7 @@ class EventMapperTest {
                     id = "event-id",
                     name = "День рождения жены",
                     description = "Этот день самый главный праздник в году. Про него никак нельзя забыть",
-                    startSchedule = "2021-02-25 13:40",
+                    startSchedule = "2021-02-25T13:40:00",
                     userId = "user-id",
                     frequency = FrequencyDto.YEARLY,
                     mobile = "+7123456789",
@@ -474,7 +477,7 @@ class EventMapperTest {
         assertThat(responseEventFilter).isEqualTo(
             ResponseEventFilter(
                 onRequestId = "request-id",
-                responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                responseId = guid,
                 startTime = "2020-01-01T10:19:00",
                 endTime = "2020-01-01T10:20:00",
                 status = ResponseStatusDto.ERROR,
@@ -515,7 +518,7 @@ class EventMapperTest {
         assertThat(responseEventFilter).isEqualTo(
             ResponseEventFilter(
                 onRequestId = "request-id",
-                responseId = "2b5edf5c-0388-4f55-9b05-675460e0462d",
+                responseId = guid,
                 startTime = "2020-01-01T10:19:00",
                 endTime = "2020-01-01T10:20:00",
                 status = ResponseStatusDto.SUCCESS,
@@ -524,7 +527,7 @@ class EventMapperTest {
                         id = "event-id",
                         name = "День рождения жены",
                         description = "Этот день самый главный праздник в году. Про него никак нельзя забыть",
-                        startSchedule = "2021-02-25 13:40",
+                        startSchedule = "2021-02-25T13:40:00",
                         userId = "user-id",
                         frequency = FrequencyDto.YEARLY,
                         mobile = "+7123456789",

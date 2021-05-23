@@ -48,12 +48,15 @@ dependencies {
     implementation("io.ktor:ktor-server-core:$ktorVersion")
     implementation("io.ktor:ktor-server-host-common:$ktorVersion")
     implementation("io.ktor:ktor-serialization:$ktorVersion")
+    implementation("com.github.Datana-company:ktor-kafka:$ktorKafkaVersion")
+    implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
+    implementation("io.ktor:ktor-auth:$ktorVersion")
+    implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
+
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
     testImplementation("org.assertj:assertj-core:$assertjVersion")
     testImplementation("io.mockk:mockk:$mockkVersion")
 
-    implementation("com.github.Datana-company:ktor-kafka:$ktorKafkaVersion")
-    implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
 }
 
 kotlin.sourceSets["main"].kotlin.srcDirs("src")

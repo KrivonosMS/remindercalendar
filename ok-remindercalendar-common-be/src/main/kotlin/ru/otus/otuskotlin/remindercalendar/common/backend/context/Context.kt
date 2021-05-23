@@ -5,6 +5,10 @@ import ru.otus.otuskotlin.remindercalendar.common.backend.repositories.EventRepo
 import java.time.LocalDateTime
 
 data class Context(
+    var principal: PrincipalModel = PrincipalModel.NONE,
+    var useAuth: Boolean = true,
+    val permissions: MutableSet<Permission> = mutableSetOf(),
+
     var status: ContextStatus = ContextStatus.NONE,
     var stubCase: StubCase = StubCase.NONE,
     var workMode: WorkMode = WorkMode.DEFAULT,

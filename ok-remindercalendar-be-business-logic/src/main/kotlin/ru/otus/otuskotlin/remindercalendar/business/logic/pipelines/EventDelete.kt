@@ -38,7 +38,7 @@ object EventDelete : Operation<Context> by pipeline({
                 errors.add(
                     ErrorValueModel(
                         code = "demand-repo-delete-error",
-                        message = t.message?:"")
+                        message = "Внутренняя ошибка, обратитесь к администратору")
                 )
             }
         }

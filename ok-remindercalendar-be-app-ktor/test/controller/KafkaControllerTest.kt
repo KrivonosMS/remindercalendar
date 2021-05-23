@@ -23,14 +23,16 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-
 internal class KafkaControllerTest {
+
+    private val guid = "2b5edf5c-0388-4f55-9b05-675460e0462d"
+
     @BeforeTest
     fun mockInit() {
         mockkStatic(LocalDateTime::class)
         every { LocalDateTime.now() } returns LocalDateTime.of(2020, 1, 1, 10, 20)
         mockkStatic(UUID::class)
-        every { UUID.randomUUID() } returns UUID.fromString("2b5edf5c-0388-4f55-9b05-675460e0462d")
+        every { UUID.randomUUID() } returns UUID.fromString(guid)
     }
 
     @AfterTest
@@ -79,11 +81,10 @@ internal class KafkaControllerTest {
                 val responseObjs = producer.getSent()
                 assertTrue() {
                     val feedBack = responseObjs.first().value()
-                    println(feedBack)
                     feedBack.contains(
                         """{
     "type": "ResponseEventCreate",
-    "responseId": "2b5edf5c-0388-4f55-9b05-675460e0462d",
+    "responseId": "$guid",
     "onRequestId": "create-id",
     "startTime": "2020-01-01T10:20:00",
     "endTime": "2020-01-01T10:20:00",
@@ -94,7 +95,7 @@ internal class KafkaControllerTest {
         "id": "test-id",
         "name": "name",
         "description": "test-description",
-        "startSchedule": "2020-02-25 07:22",
+        "startSchedule": "2020-02-25T07:22:00",
         "userId": "test-user-id",
         "frequency": "DAILY",
         "mobile": "test-mobile"
