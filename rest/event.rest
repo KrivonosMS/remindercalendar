@@ -8,7 +8,7 @@ Content-Type: application/json
   "event": {
     "name": "name",
     "description": "description",
-    "startSchedule": "startSchedule",
+    "startSchedule": "2021-02-25T13:40:00",
     "userId": "userId",
     "frequency": "YEARLY",
     "mobile": "7123456789"
@@ -22,7 +22,7 @@ Content-Type: application/json
 {
   "type": "RequestEventRead",
   "requestId": "1",
-  "eventId": "event-id"
+  "eventId": "76f842ab-ddba-4176-97f9-e31c37c5352c"
 }
 
 ###
@@ -33,10 +33,10 @@ Content-Type: application/json
   "type": "RequestEventUpdate",
   "requestId": "1",
   "event": {
-    "id": "id",
+    "id": "76f842ab-ddba-4176-97f9-e31c37c5352c",
     "name": "name",
     "description": "description",
-    "startSchedule": "startSchedule",
+    "startSchedule": "2022-02-25T13:40:00",
     "userId": "userId",
     "frequency": "YEARLY",
     "mobile": "7123456789"
@@ -50,7 +50,7 @@ Content-Type: application/json
 {
   "type": "RequestEventDelete",
   "requestId": "1",
-  "eventId": "event-id"
+  "eventId": "76f842ab-ddba-4176-97f9-e31c37c5352c"
 }
 
 ###
@@ -62,7 +62,7 @@ Content-Type: application/json
   "requestId": "1",
   "filter": {
     "frequency": "YEARLY",
-    "from": "10",
+    "from": "0",
     "pageSize": "2"
   }
 }

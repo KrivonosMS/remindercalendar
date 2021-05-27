@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.marketplace.backend.app.ktor.configs
+package ru.otus.otuskotlin.remindercalendar.backend.app.ktor.configs
 
 import io.ktor.application.*
 import io.ktor.util.*
@@ -15,7 +15,7 @@ data class PostgresqlConfig(
         url = environment.config.property("$PATH.url").getString(),
         driver = environment.config.property("$PATH.driver").getString(),
         user = environment.config.property("$PATH.user").getString(),
-        password = environment.config.property("$PATH.pass").getString(),
+        password = environment.config.property("$PATH.password").getString(),
         printLogs = environment.config.property("$PATH.printLogs").getString().toBoolean()
     )
 

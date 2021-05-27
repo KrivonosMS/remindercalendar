@@ -22,7 +22,7 @@ internal class SqlDdEventRepositoryTest {
     companion object {
         private const val USER = "postgres"
         private const val PASS = "postgres"
-        private const val DB = "marketplace"
+        private const val DB = "remindercalendar"
 
         private val testEventId1 = EventIdModel("11111111-1111-1111-1111-111111111111")
         private val testEventId2 = EventIdModel("11111111-1111-1111-1111-111111111112")

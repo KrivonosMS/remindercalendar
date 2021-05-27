@@ -16,7 +16,7 @@ import kotlin.test.fail
 
 class AuthJwtTest {
     companion object {
-        const val SECRET = "marketplace-secret"
+        const val SECRET = "remindercalendar-secret"
         const val AUDIENCE = "test-mp-audience"
         const val REALM = "test-mp-realm"
         const val DOMAIN = "http://localhost/"
