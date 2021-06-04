@@ -18,6 +18,7 @@ dependencies {
     implementation(project(":ok-remindercalendar-common-be"))
     implementation(project(":ok-remindercalendar-mp-pipelines"))
     implementation(project(":ok-remindercalendar-mp-pipelines-validation"))
+    implementation(project(":ok-remindercalendar-be-logging"))
 
     testImplementation(kotlin("test-junit5"))
     testImplementation(platform("org.junit:junit-bom:5.7.1"))

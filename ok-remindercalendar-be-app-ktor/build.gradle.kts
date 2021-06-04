@@ -41,10 +41,11 @@ dependencies {
     implementation(project(":ok-remindercalendar-be-business-logic"))
     implementation(project(":ok-remindercalendar-be-repository-inmemory"))
     implementation(project(":ok-remindercalendar-be-repository-sql"))
+    implementation(project(":ok-remindercalendar-be-logging"))
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    implementation("ch.qos.logback:logback-classic:$logbackVersion")
+//    implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("io.ktor:ktor-server-core:$ktorVersion")
     implementation("io.ktor:ktor-server-host-common:$ktorVersion")
     implementation("io.ktor:ktor-serialization:$ktorVersion")

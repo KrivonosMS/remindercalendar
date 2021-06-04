@@ -7,8 +7,8 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import org.apache.kafka.clients.consumer.Consumer
 import org.apache.kafka.clients.producer.Producer
-import ru.otus.otuskotlin.marketplace.backend.app.ktor.configs.PostgresqlConfig
-import ru.otus.otuskotlin.remindercalendar.business.logic.EventCrud
+import ru.otus.otuskotlin.remindercalendar.backend.app.ktor.configs.PostgresqlConfig
+import ru.otus.otuskotlin.remindercalendar.logging.EventCrud
 import ru.otus.otuskotlin.remindercalendar.common.backend.repositories.EventRepository
 import ru.otus.otuskotlin.remindercalendar.ktor.configs.AuthConfig
 import ru.otus.otuskotlin.remindercalendar.ktor.configs.featureAuth
@@ -45,7 +45,7 @@ fun Application.module(
 
 
     val repositoryProdName by lazy {
-        environment.config.propertyOrNull("remindercalendar.prod")
+        environment.config.propertyOrNull("remindercalendar.repository.prod")
             ?.getString()
             ?.trim()
             ?.toLowerCase()
